@@ -2,11 +2,12 @@ using BuildingBlocks.Abstractions.Domain;
 
 namespace Services.Catalog.Brands;
 
-public record BrandId : AggregateId {
-	public BrandId(long value) : base(value) {
-	}
+public sealed record BrandId : AggregateId {
+	private BrandId(Guid value) : base(value) { }
 
-	public static implicit operator long(BrandId id) => id.Value;
+	public static BrandId Generate => new(Guid.NewGuid());
 
+
+	public static implicit operator Guid(BrandId id) => id.Value;
 	public static implicit operator BrandId(long id) => new(id);
 }
