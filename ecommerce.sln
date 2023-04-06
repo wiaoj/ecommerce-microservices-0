@@ -5,14 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{777562F6-CE84-4A62-BE24-AEDD7CE0AFA9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{66127541-BA34-4010-BBCA-A0A0B468ECDF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlocks.Integration.MassTransit", "src\BuildingBlocks\BuildingBlocks.Integration.MassTransit\BuildingBlocks.Integration.MassTransit.csproj", "{8CDD5B8D-AB12-4315-A655-FD25DD2BAE2F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Core", "src\BuildingBlocks\BuildingBlocks.Core\BuildingBlocks.Core.csproj", "{332D55AB-D201-4AEC-A87A-1EB4C5351E2C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Abstractions", "src\BuildingBlocks\BuildingBlocks.Abstractions\BuildingBlocks.Abstractions.csproj", "{4624CF91-07D2-476D-BEEF-0480AFD48153}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "building-blocks", "building-blocks", "{E0E349F6-418D-4557-92C3-DE082AC8AF7A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Abstractions", "src\building-blocks\BuildingBlocks.Abstractions\BuildingBlocks.Abstractions.csproj", "{19D5DEAE-6C61-43BE-A1C2-166DE8CB8CDF}"
