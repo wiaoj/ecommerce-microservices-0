@@ -1,6 +1,6 @@
 using BuildingBlocks.Abstractions.CQRS.Events;
 using BuildingBlocks.Abstractions.CQRS.Events.Internal;
-using BuildingBlocks.Abstractions.Messaging;
+using BuildingBlocks.Abstractions.Messaging.Events;
 using ECommerce.Services.Catalogs.Products.Features.CreatingProduct.Events.Notification;
 using Services.Catalog.Products.Features.CreatingProduct.Events.Domain;
 using Services.Catalog.Products.Features.DebitingProductStock.Events.Domain;

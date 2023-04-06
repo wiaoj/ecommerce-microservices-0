@@ -1,5 +1,5 @@
 using BuildingBlocks.Abstractions.CQRS.Events.Internal;
-using BuildingBlocks.Abstractions.Messaging;
+using BuildingBlocks.Abstractions.Messaging.Events;
 
 namespace BuildingBlocks.Abstractions.CQRS.Events;
 
