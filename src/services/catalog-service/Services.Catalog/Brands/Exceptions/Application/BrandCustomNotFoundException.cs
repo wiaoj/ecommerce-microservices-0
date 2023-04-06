@@ -1,10 +1,8 @@
-using BuildingBlocks.Core.Exception.Types;
+using BuildingBlocks.Core.Exceptions;
 
 namespace Services.Catalog.Brands.Exceptions.Application;
-public class BrandCustomNotFoundException : CustomNotFoundException {
-	public BrandCustomNotFoundException(Guid id) : base($"Brand with id '{id}' not found") {
-	}
+public class BrandNotFoundException : NotFoundException {
+	public BrandNotFoundException(Guid id) : base($"Brand with id '{id}' not found") { }
 
-	public BrandCustomNotFoundException(string message) : base(message) {
-	}
+	public BrandNotFoundException(String message) : base(message) { }
 }
