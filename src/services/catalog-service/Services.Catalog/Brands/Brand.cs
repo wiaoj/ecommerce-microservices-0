@@ -1,24 +1,24 @@
-using Ardalis.GuardClauses;
 using BuildingBlocks.Core.Domain;
-using ECommerce.Services.Catalogs.Brands.Exceptions.Domain;
+using Services.Catalog.Brands.Exceptions.Domain;
 
 namespace Services.Catalog.Brands;
+public sealed class Brand : Aggregate<BrandId> {
+	public String Name { get; private set; }
 
-public class Brand : Aggregate<BrandId> {
-	public string Name { get; private set; } = null!;
-
-	public static Brand Create(BrandId id, string name) {
-		var brand = new Brand { Id = Guard.Against.Null(id, nameof(id)) };
-
-		brand.ChangeName(name);
-
-		return brand;
+	private Brand(BrandId id, String name) {
+		this.Id = id;
+		this.Name = name;
 	}
 
-	public void ChangeName(string name) {
-		if(string.IsNullOrWhiteSpace(name))
-			throw new BrandDomainException("Name can't be white space or null.");
+	public static Brand Create(BrandId id, String name) {
+		return new(id, name);
+	}
 
-		Name = name;
+	public void ChangeName(String name) {
+		if(String.IsNullOrWhiteSpace(name)) {
+			throw new BrandDomainException("Name can't be white space or null.");
+		}
+
+		this.Name = name;
 	}
 }
