@@ -1,6 +1,6 @@
 ﻿namespace BuildingBlocks.Abstractions.Domain;
 public abstract record Identity<TypeId> {
-	public TypeId Value { get; protected set; }
+	public TypeId Value { get; private set; }
 
 	protected Identity(TypeId value) {
 		this.Value = value;
