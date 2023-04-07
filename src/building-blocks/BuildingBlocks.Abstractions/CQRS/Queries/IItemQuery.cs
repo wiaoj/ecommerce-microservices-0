@@ -1,9 +1,5 @@
 namespace BuildingBlocks.Abstractions.CQRS.Queries;
-
-public interface IItemQuery<TId, out TResponse> : IQuery<TResponse>
-    where TId : struct
-    where TResponse : notnull
-{
-    public IList<string> Includes { get; }
-    public TId Id { get; }
+public interface IItemQuery<TypeId, out TypeResponse> : IQuery<TypeResponse> where TypeId : struct where TypeResponse : notnull {
+	public IList<String> Includes { get; }
+	public TypeId Id { get; }
 }

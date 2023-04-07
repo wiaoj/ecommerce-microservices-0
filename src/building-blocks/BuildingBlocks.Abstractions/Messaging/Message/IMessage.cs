@@ -2,6 +2,6 @@
 
 namespace BuildingBlocks.Abstractions.Messaging.Message;
 public interface IMessage : INotification {
-	public Guid MessageId { get; set; }
-	public DateTime Created { get; set; }
+	public Guid MessageId { get; }
+	public DateTime Created { get; }
 }
