@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Catalog", "src\ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Catalog.API", "src\services\catalog-service\Services.Catalog.API\Services.Catalog.API.csproj", "{CB3E4BB8-69A4-4AD9-A5A0-56C656226A59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Persistence.EfCore.Postgres", "src\building-blocks\BuildingBlocks.Persistence.EfCore.Postgres\BuildingBlocks.Persistence.EfCore.Postgres.csproj", "{EF97F3B7-37F0-4A9C-B3B1-FC1FC022499C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{CB3E4BB8-69A4-4AD9-A5A0-56C656226A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB3E4BB8-69A4-4AD9-A5A0-56C656226A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB3E4BB8-69A4-4AD9-A5A0-56C656226A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF97F3B7-37F0-4A9C-B3B1-FC1FC022499C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF97F3B7-37F0-4A9C-B3B1-FC1FC022499C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF97F3B7-37F0-4A9C-B3B1-FC1FC022499C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF97F3B7-37F0-4A9C-B3B1-FC1FC022499C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +66,6 @@ Global
 		{1E32B811-BF00-42FF-B885-1497FB3CE9A4} = {FA114AF7-1E57-4A48-9966-43DA66EA6916}
 		{1B386042-0A67-4140-B14C-114057B878D9} = {1E32B811-BF00-42FF-B885-1497FB3CE9A4}
 		{CB3E4BB8-69A4-4AD9-A5A0-56C656226A59} = {1E32B811-BF00-42FF-B885-1497FB3CE9A4}
+		{EF97F3B7-37F0-4A9C-B3B1-FC1FC022499C} = {E0E349F6-418D-4557-92C3-DE082AC8AF7A}
 	EndGlobalSection
 EndGlobal
