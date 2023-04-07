@@ -1,3 +1,2 @@
 namespace BuildingBlocks.Abstractions.CQRS;
-
-public record FilterModel(string FieldName, string Comparision, string FieldValue);
+public record FilterModel(String FieldName, String Comparision, String FieldValue);

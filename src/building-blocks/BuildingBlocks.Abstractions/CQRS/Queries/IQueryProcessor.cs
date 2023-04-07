@@ -1,12 +1,8 @@
 namespace BuildingBlocks.Abstractions.CQRS.Queries;
+public interface IQueryProcessor {
+	public Task<TypeResponse> SendAsync<TypeResponse>(IQuery<TypeResponse> query, CancellationToken cancellationToken)
+		where TypeResponse : notnull;
 
-public interface IQueryProcessor
-{
-    Task<TResponse> SendAsync<TResponse>(IQuery<TResponse> query, CancellationToken cancellationToken = default)
-        where TResponse : notnull;
-
-    IAsyncEnumerable<TResponse> SendAsync<TResponse>(
-        IStreamQuery<TResponse> query,
-        CancellationToken cancellationToken = default)
-        where TResponse : notnull;
+	public IAsyncEnumerable<TypeResponse> SendAsync<TypeResponse>(IStreamQuery<TypeResponse> query, CancellationToken cancellationToken) 
+		where TypeResponse : notnull;
 }

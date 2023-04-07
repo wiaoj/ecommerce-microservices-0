@@ -1,10 +1,8 @@
 namespace BuildingBlocks.Abstractions.CQRS.Queries;
-
-public interface IPageRequest
-{
-    IList<string>? Includes { get; init; }
-    IList<FilterModel>? Filters { get; init; }
-    IList<string>? Sorts { get; init; }
-    int Page { get; init; }
-    int PageSize { get; init; }
+public interface IPageRequest {
+	public IList<String>? Includes { get; init; }
+	public IList<FilterModel>? Filters { get; init; }
+	public IList<String>? Sorts { get; init; }
+	public Int32 Page { get; init; }
+	public Int32 PageSize { get; init; }
 }

@@ -5,6 +5,8 @@ public class MessageEnvelope {
 	public Object? Message { get; init; }
 	public IDictionary<String, Object?> Headers { get; init; }
 
+	public MessageEnvelope(Object? message) : this(message, null) { }
+
 	public MessageEnvelope(Object? message, IDictionary<String, Object?>? headers) {
 		this.Message = message;
 		this.Headers = headers ?? new Dictionary<String, Object?>();
