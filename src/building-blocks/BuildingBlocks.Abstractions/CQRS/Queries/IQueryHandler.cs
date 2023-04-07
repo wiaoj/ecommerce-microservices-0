@@ -1,16 +1,13 @@
 using MediatR;
 
 namespace BuildingBlocks.Abstractions.CQRS.Queries;
-
-public interface IQueryHandler<in TQuery, TResponse> : IRequestHandler<TQuery, TResponse>
-    where TQuery : IQuery<TResponse>
-    where TResponse : notnull
-{
+public interface IQueryHandler<in TypeQuery, TypeResponse> : IRequestHandler<TypeQuery, TypeResponse>
+	where TypeQuery : IQuery<TypeResponse>
+	where TypeResponse : notnull {
 }
 
 // https://jimmybogard.com/mediatr-10-0-released/
-public interface IStreamQueryHandler<in TQuery, TResponse> : IStreamRequestHandler<TQuery, TResponse>
-    where TQuery : IStreamQuery<TResponse>
-    where TResponse : notnull
-{
+public interface IStreamQueryHandler<in TypeQuery, TypeResponse> : IStreamRequestHandler<TypeQuery, TypeResponse>
+	where TypeQuery : IStreamQuery<TypeResponse>
+	where TypeResponse : notnull {
 }

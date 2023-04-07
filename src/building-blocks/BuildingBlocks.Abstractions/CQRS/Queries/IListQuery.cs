@@ -1,11 +1,8 @@
 namespace BuildingBlocks.Abstractions.CQRS.Queries;
-
-public interface IListQuery<out TResponse> : IQuery<TResponse>
-    where TResponse : notnull
-{
-    public IList<string>? Includes { get; init; }
-    public IList<FilterModel>? Filters { get; init; }
-    public IList<string>? Sorts { get; init; }
-    public int Page { get; init; }
-    public int PageSize { get; init; }
+public interface IListQuery<out TypeResponse> : IQuery<TypeResponse> where TypeResponse : notnull {
+	public IList<String>? Includes { get; init; }
+	public IList<FilterModel>? Filters { get; init; }
+	public IList<String>? Sorts { get; init; }
+	public Int32 Page { get; init; }
+	public Int32 PageSize { get; init; }
 }

@@ -1,0 +1,14 @@
+﻿namespace BuildingBlocks.Abstractions.Persistence.EventStore.Projections;
+public interface IHaveAggregateStateProjection {
+	/// <summary>
+	/// Update the aggregate state with new events that are added to the event store and also for events that are already in the event store without increasing the version.
+	/// </summary>
+	/// <param name="event"></param>
+	public void When(Object @event);
+
+	/// <summary>
+	/// Restore the aggregate state with events that are loaded form the event store and increase the current version and last commit version.
+	/// </summary>
+	/// <param name="event"></param>
+	public void Fold(Object @event);
+}
