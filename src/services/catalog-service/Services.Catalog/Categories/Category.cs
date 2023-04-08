@@ -1,17 +1,23 @@
-using Ardalis.GuardClauses;
 using BuildingBlocks.Core.Domain;
-using ECommerce.Services.Catalogs.Categories.Exceptions.Domain;
+using Services.Catalog.Categories.Exceptions.Domain;
 
 namespace Services.Catalog.Categories;
-
-// https://stackoverflow.com/a/32354885/581476
 public class Category : Aggregate<CategoryId> {
-	public string Name { get; private set; } = null!;
-	public string Description { get; private set; } = null!;
-	public string Code { get; private set; } = null!;
+	public String Name { get; private set; }
+	public String Description { get; private set; }
+	public String Code { get; private set; }
 
-	public static Category Create(CategoryId id, string name, string code, string description = "") {
-		var category = new Category { Id = Guard.Against.Null(id, nameof(id)) };
+	private Category(CategoryId id) {
+		this.Id = id;
+	}
+
+	public static Category Create(CategoryId id, String name, String code) {
+		return Create(id, name, code, String.Empty);
+	}
+
+	public static Category Create(CategoryId id, String name, String code, String description) {
+		ArgumentNullException.ThrowIfNull(id, nameof(id));
+		Category category = new(id);
 
 		category.ChangeName(name);
 		category.ChangeDescription(description);
@@ -20,28 +26,31 @@ public class Category : Aggregate<CategoryId> {
 		return category;
 	}
 
-	public void ChangeName(string name) {
-		if(string.IsNullOrWhiteSpace(name))
+	public void ChangeName(String name) {
+		if(String.IsNullOrWhiteSpace(name)) {
 			throw new CategoryDomainException("Name can't be white space or null.");
+		}
 
-		Name = name;
+		this.Name = name;
 	}
 
-	public void ChangeCode(string code) {
-		if(string.IsNullOrWhiteSpace(code))
+	public void ChangeCode(String code) {
+		if(String.IsNullOrWhiteSpace(code)) {
 			throw new CategoryDomainException("Code can't be white space or null.");
+		}
 
-		Code = code;
+		this.Code = code;
 	}
 
-	public void ChangeDescription(string description) {
-		if(string.IsNullOrWhiteSpace(description))
+	public void ChangeDescription(String description) {
+		if(String.IsNullOrWhiteSpace(description)) {
 			throw new CategoryDomainException("Description can't be white space or null.");
+		}
 
-		Description = description;
+		this.Description = description;
 	}
 
-	public override string ToString() {
-		return $"{Name} - {Code}";
+	public override String ToString() {
+		return $"{this.Name} - {this.Code}";
 	}
 }

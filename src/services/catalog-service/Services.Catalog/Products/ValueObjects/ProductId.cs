@@ -1,14 +1,9 @@
-using Ardalis.GuardClauses;
 using BuildingBlocks.Abstractions.Domain;
 
 namespace Services.Catalog.Products.ValueObjects;
-
 public record ProductId : AggregateId {
-	public ProductId(long value) : base(value) {
-		Guard.Against.NegativeOrZero(value, nameof(value));
-	}
+	public ProductId(Guid value) : base(value) { }
 
-	public static implicit operator long(ProductId id) => id.Value;
-
-	public static implicit operator ProductId(long id) => new(id);
+	public static implicit operator Guid(ProductId id) => id.Value;
+	public static implicit operator ProductId(Guid id) => new(id);
 }

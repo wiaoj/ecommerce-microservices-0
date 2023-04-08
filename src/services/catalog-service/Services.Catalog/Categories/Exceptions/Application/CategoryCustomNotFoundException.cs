@@ -1,11 +1,7 @@
-using BuildingBlocks.Core.Exception.Types;
+using BuildingBlocks.Core.Exceptions;
 
 namespace Services.Catalog.Categories.Exceptions.Application;
-
-public class CategoryCustomNotFoundException : CustomNotFoundException {
-	public CategoryCustomNotFoundException(long id) : base($"Category with id '{id}' not found.") {
-	}
-
-	public CategoryCustomNotFoundException(string message) : base(message) {
-	}
+public class CategoryNotFoundException : NotFoundException {
+	public CategoryNotFoundException(String message) : base(message) { }
+	public CategoryNotFoundException(Guid id) : base($"Category with id '{id}' not found.") { }
 }

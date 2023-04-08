@@ -1,4 +1,3 @@
-using Asp.Versioning.Builder;
 using BuildingBlocks.Abstractions.CQRS.Events;
 using BuildingBlocks.Abstractions.Persistence;
 using BuildingBlocks.Abstractions.Web.Module;
@@ -12,11 +11,9 @@ using Services.Catalog.Products.Features.UpdatingProduct;
 using Services.Catalog.Shared;
 
 namespace Services.Catalog.Products;
-
 internal class ProductsConfigs : IModuleConfiguration {
-	public const string Tag = "Products";
-	public const string ProductsPrefixUri = $"{SharedModulesConfiguration.CatalogModulePrefixUri}/products";
-	public static ApiVersionSet VersionSet { get; private set; } = default!;
+	public const String Tag = "Products";
+	public const String ProductsPrefixUri = $"{SharedModulesConfiguration.CatalogModulePrefixUri}/products";
 
 	public WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder) {
 		builder.Services.AddScoped<IDataSeeder, ProductDataSeeder>();
@@ -30,13 +27,22 @@ internal class ProductsConfigs : IModuleConfiguration {
 	}
 
 	public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
-		VersionSet = endpoints.NewApiVersionSet(Tag).Build();
+		var productsVersionGroup = endpoints.MapApiGroup(Tag).WithTags(Tag);
 
-		return endpoints.MapCreateProductsEndpoint()
-			.MapUpdateProductEndpoint()
-			.MapDebitProductStockEndpoint()
-			.MapReplenishProductStockEndpoint()
-			.MapGetProductByIdEndpoint()
-			.MapGetProductsViewEndpoint();
+		// create a new sub group for each version
+		var productsGroupV1 = productsVersionGroup.MapGroup(ProductsPrefixUri).HasApiVersion(1.0);
+
+		// create a new sub group for each version
+		var productsGroupV2 = productsVersionGroup.MapGroup(ProductsPrefixUri).HasApiVersion(2.0);
+
+		// https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0#route-groups
+		// https://github.com/dotnet/aspnet-api-versioning/blob/main/examples/AspNetCore/WebApi/MinimalOpenApiExample/Program.cs
+		productsGroupV1.MapCreateProductsEndpoint();
+		productsGroupV1.MapUpdateProductEndpoint();
+		productsGroupV1.MapDebitProductStockEndpoint();
+		productsGroupV1.MapReplenishProductStockEndpoint();
+		productsGroupV1.MapGetProductByIdEndpoint();
+		productsGroupV1.MapGetProductsViewEndpoint();
+		return endpoints;
 	}
 }

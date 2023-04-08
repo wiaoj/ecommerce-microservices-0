@@ -3,7 +3,6 @@ using Services.Catalog.Products.Models;
 using Services.Catalog.Shared.Data;
 
 namespace Services.Catalog.Products.Data;
-
 public class ProductImageEntityTypeConfiguration : IEntityTypeConfiguration<ProductImage> {
 	public void Configure(EntityTypeBuilder<ProductImage> builder) {
 		builder.ToTable("product_images", CatalogDbContext.DefaultSchema);

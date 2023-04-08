@@ -2,26 +2,25 @@ using BuildingBlocks.Abstractions.Persistence;
 using Services.Catalog.Shared.Contracts;
 
 namespace Services.Catalog.Categories.Data;
-
 public class CategoryDataSeeder : IDataSeeder {
-	private readonly ICatalogDbContext _dbContext;
+	private readonly ICatalogDbContext dbContext;
 
 	public CategoryDataSeeder(ICatalogDbContext dbContext) {
-		_dbContext = dbContext;
+		this.dbContext = dbContext;
 	}
 
 	public async Task SeedAllAsync() {
-		if(await _dbContext.Categories.AnyAsync())
+		if(await this.dbContext.Categories.AnyAsync()) {
 			return;
+		}
 
-		await _dbContext.Categories.AddRangeAsync(new List<Category>
-		{
-			Category.Create(1, "Electronics", "0001", "All electronic goods"),
-			Category.Create(2, "Clothing", "0002", "All clothing goods"),
-			Category.Create(3, "Books", "0003", "All books"),
+		await this.dbContext.Categories.AddRangeAsync(new List<Category> {
+			Category.Create(Guid.NewGuid(), "Electronics", "0001", "All electronic goods"),
+			Category.Create(Guid.NewGuid(), "Clothing", "0002", "All clothing goods"),
+			Category.Create(Guid.NewGuid(), "Books", "0003", "All books"),
 		});
-		await _dbContext.SaveChangesAsync();
+		await this.dbContext.SaveChangesAsync(default);
 	}
 
-	public int Order => 1;
+	public Int32 Order => 1;
 }

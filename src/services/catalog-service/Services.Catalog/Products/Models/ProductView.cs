@@ -1,12 +1,11 @@
 namespace Services.Catalog.Products.Models;
-
 public class ProductView {
-	public long ProductId { get; set; }
-	public string ProductName { get; set; } = default!;
-	public long CategoryId { get; set; }
-	public string CategoryName { get; set; } = default!;
-	public long SupplierId { get; set; }
-	public string SupplierName { get; set; } = default!;
-	public long BrandId { get; set; }
-	public string BrandName { get; set; } = default!;
+	public Guid ProductId { get; set; }
+	public String ProductName { get; set; } = default!;
+	public Guid CategoryId { get; set; }
+	public String CategoryName { get; set; } = default!;
+	public Guid SupplierId { get; set; }
+	public String SupplierName { get; set; } = default!;
+	public Guid BrandId { get; set; }
+	public String BrandName { get; set; } = default!;
 }

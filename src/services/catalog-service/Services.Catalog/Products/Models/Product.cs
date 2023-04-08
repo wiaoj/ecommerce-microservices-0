@@ -1,21 +1,14 @@
-using Ardalis.GuardClauses;
-using BuildingBlocks.Core.CQRS.Events.Internal;
 using BuildingBlocks.Core.Domain;
-using BuildingBlocks.Core.Exception;
-using ECommerce.Services.Catalogs.Products.Exceptions.Domain;
-using ECommerce.Services.Catalogs.Products.Features.ChangingMaxThreshold;
-using ECommerce.Services.Catalogs.Products.Features.ChangingProductBrand.Events.Domain;
-using ECommerce.Services.Catalogs.Products.Features.ChangingProductCategory.Events;
-using ECommerce.Services.Catalogs.Products.Features.ChangingProductSupplier.Events;
-using ECommerce.Services.Catalogs.Products.Features.ChangingRestockThreshold;
-using ECommerce.Services.Catalogs.Products.Features.CreatingProduct.Events.Domain;
-using ECommerce.Services.Catalogs.Products.Features.DebitingProductStock.Events.Domain;
-using ECommerce.Services.Catalogs.Products.Features.ReplenishingProductStock.Events.Domain;
+using Services.Catalog.Products.Exceptions.Domain;
+using Services.Catalog.Products.Features.CreatingProduct.v1.Events.Domain;
 using Services.Catalog.Brands;
 using Services.Catalog.Categories;
-using Services.Catalog.Products.Features.ChangingProductPrice;
 using Services.Catalog.Products.ValueObjects;
 using Services.Catalog.Suppliers;
+using Services.Catalog.Products.Features.ChangingProductPrice.v1;
+using Services.Catalog.Products.Features.ChangingMaxThreshold.v1;
+using Services.Catalog.Products.Features.ChangingRestockThreshold.v1;
+using Services.Catalog.Products.Features.ReplenishingProductStock.v1.Events.Domain;
 
 namespace Services.Catalog.Products.Models;
 
@@ -41,6 +34,19 @@ public class Product : Aggregate<ProductId> {
 	public Dimensions Dimensions { get; private set; } = null!;
 	public IReadOnlyList<ProductImage> Images => _images;
 
+	private Product(ProductId id, Stock stock) {
+		if(id is null) {
+			throw new ProductDomainException("Product id can not be null");
+		}
+
+		if(stock is null) {
+			throw new ProductDomainException("Product stock can not be null");
+		}
+
+		this.Id = id;
+		this.Stock = stock;
+	}
+	
 	public static Product Create(
 		ProductId id,
 		Name name,
@@ -55,10 +61,7 @@ public class Product : Aggregate<ProductId> {
 		SupplierId supplierId,
 		BrandId brandId,
 		IList<ProductImage>? images = null) {
-		var product = new Product {
-			Id = Guard.Against.Null(id, new ProductDomainException("Product id can not be null")),
-			Stock = Guard.Against.Null(stock, new ProductDomainException("Product stock can not be null"))
-		};
+		var product = new Product(id, stock);
 
 		product.ChangeName(name);
 		product.ChangeSize(size);
@@ -82,13 +85,17 @@ public class Product : Aggregate<ProductId> {
 	}
 
 	public void ChangeDimensions(Dimensions dimensions) {
-		Guard.Against.Null(dimensions, new ProductDomainException("Dimensions cannot be null."));
+		if(dimensions is null) {
+			throw new ProductDomainException("Dimensions cannot be null.");
+		}
 
 		Dimensions = dimensions;
 	}
 
 	public void ChangeSize(Size size) {
-		Guard.Against.Null(size, new ProductDomainException("Size cannot be null."));
+		if(size is null) {
+			throw new ProductDomainException("Size cannot be null.");
+		}
 
 		Size = size;
 	}
@@ -102,7 +109,9 @@ public class Product : Aggregate<ProductId> {
 	/// </summary>
 	/// <param name="name">The name to be changed.</param>
 	public void ChangeName(Name name) {
-		Guard.Against.Null(name, new ProductDomainException("Product name cannot be null."));
+		if(name is null) {
+			throw new ProductDomainException("Product name cannot be null.");
+		}
 
 		Name = name;
 	}
@@ -123,7 +132,9 @@ public class Product : Aggregate<ProductId> {
 	/// </remarks>
 	/// <param name="price">The price to be changed.</param>
 	public void ChangePrice(Price price) {
-		Guard.Against.Null(price, new ProductDomainException("Price cannot be null."));
+		if(price is null) {
+			throw new ProductDomainException("Price cannot be null.");
+		}
 
 		if(Price == price)
 			return;
@@ -181,7 +192,9 @@ public class Product : Aggregate<ProductId> {
 	}
 
 	public Stock ChangeMaxStockThreshold(int maxStockThreshold) {
-		Guard.Against.NegativeOrZero(maxStockThreshold, nameof(maxStockThreshold));
+		if(maxStockThreshold <= default(Int32)) {
+			throw new ArgumentException(null, nameof(maxStockThreshold));
+		}
 
 		Stock = Stock.Create(Stock.Available, Stock.RestockThreshold, maxStockThreshold);
 
@@ -191,7 +204,9 @@ public class Product : Aggregate<ProductId> {
 	}
 
 	public Stock ChangeRestockThreshold(int restockThreshold) {
-		Guard.Against.NegativeOrZero(restockThreshold, nameof(restockThreshold));
+		if(restockThreshold <= default(Int32)) {
+			throw new ArgumentException(null, nameof(restockThreshold));
+		}
 
 		Stock = Stock.Create(Stock.Available, restockThreshold, Stock.MaxStockThreshold);
 
@@ -213,7 +228,9 @@ public class Product : Aggregate<ProductId> {
 	/// </summary>
 	/// <param name="categoryId">The categoryId to be changed.</param>
 	public void ChangeCategory(CategoryId categoryId) {
-		Guard.Against.Null(categoryId, new ProductDomainException("CategoryId cannot be null"));
+		if(categoryId is null) {
+			throw new ProductDomainException("CategoryId cannot be null");
+		}
 
 		// raising domain event immediately for checking some validation rule with some dependencies such as database
 		DomainEventsInvoker.RaiseDomainEvent(new ChangingProductCategory(categoryId));
@@ -229,7 +246,9 @@ public class Product : Aggregate<ProductId> {
 	/// </summary>
 	/// <param name="supplierId">The supplierId to be changed.</param>
 	public void ChangeSupplier(SupplierId supplierId) {
-		Guard.Against.Null(supplierId, new ProductDomainException("SupplierId cannot be null"));
+		if(supplierId is null) {
+			throw new ProductDomainException("SupplierId cannot be null");
+		}
 
 		DomainEventsInvoker.RaiseDomainEvent(new ChangingProductSupplier(supplierId));
 

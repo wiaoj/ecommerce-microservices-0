@@ -1,35 +1,31 @@
 using Bogus;
 using BuildingBlocks.Abstractions.Persistence;
-using Services.Catalog.Brands;
 using Services.Catalog.Shared.Contracts;
 
 namespace Services.Catalog.Brands.Data;
-
 public class BrandDataSeeder : IDataSeeder {
-	private readonly ICatalogDbContext _context;
+	private readonly ICatalogDbContext context;
+
+	public Int32 Order => 3;
 
 	public BrandDataSeeder(ICatalogDbContext context) {
-		_context = context;
+		this.context = context;
 	}
 
 	public async Task SeedAllAsync() {
-		if(await _context.Brands.AnyAsync())
+		if(await this.context.Brands.AnyAsync()) {
 			return;
-
-		long id = 1;
+		}
 
 		// https://github.com/bchavez/Bogus
 		// https://www.youtube.com/watch?v=T9pwE1GAr_U
-		var brandFaker = new Faker<Brand>().CustomInstantiator(faker => {
-			var brand = Brand.Create(id, faker.Company.CompanyName());
-			id++;
+		Faker<Brand> brandFaker = new Faker<Brand>().CustomInstantiator(faker => {
+			Brand brand = Brand.Create(Guid.NewGuid(), faker.Company.CompanyName());
 			return brand;
 		});
-		var brands = brandFaker.Generate(5);
+		List<Brand> brands = brandFaker.Generate(5);
 
-		await _context.Brands.AddRangeAsync(brands);
-		await _context.SaveChangesAsync();
+		await this.context.Brands.AddRangeAsync(brands);
+		await this.context.SaveChangesAsync();
 	}
-
-	public int Order => 3;
 }

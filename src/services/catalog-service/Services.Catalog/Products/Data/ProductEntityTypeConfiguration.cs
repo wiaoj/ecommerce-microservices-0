@@ -8,7 +8,6 @@ using Services.Catalog.Shared.Data;
 using Services.Catalog.Suppliers;
 
 namespace Services.Catalog.Products.Data;
-
 public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product> {
 	public void Configure(EntityTypeBuilder<Product> builder) {
 		builder.ToTable("products", CatalogDbContext.DefaultSchema);
@@ -65,7 +64,7 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product> 
 
 		builder.HasOne<Category>(x => x.Category)
 			.WithMany()
-			.HasForeignKey(x => (long)x.CategoryId);
+			.HasForeignKey(x => x.CategoryId);
 
 		builder.Property(x => x.BrandId)
 			.HasConversion(brandId => brandId.Value, brandId => brandId);

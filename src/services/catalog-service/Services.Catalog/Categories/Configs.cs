@@ -3,7 +3,6 @@ using BuildingBlocks.Abstractions.Web.Module;
 using Services.Catalog.Categories.Data;
 
 namespace Services.Catalog.Categories;
-
 internal class Configs : IModuleConfiguration {
 	public WebApplicationBuilder AddModuleServices(WebApplicationBuilder builder) {
 		builder.Services.AddScoped<IDataSeeder, CategoryDataSeeder>();

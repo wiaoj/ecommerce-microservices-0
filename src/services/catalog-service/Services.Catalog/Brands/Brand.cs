@@ -6,6 +6,8 @@ public sealed class Brand : Aggregate<BrandId> {
 	public String Name { get; private set; }
 
 	private Brand(BrandId id, String name) {
+		ArgumentNullException.ThrowIfNull(id, nameof(id));
+
 		this.Id = id;
 		this.Name = name;
 	}

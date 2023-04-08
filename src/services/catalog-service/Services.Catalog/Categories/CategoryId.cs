@@ -1,12 +1,9 @@
 using BuildingBlocks.Abstractions.Domain;
 
 namespace Services.Catalog.Categories;
-
 public record CategoryId : AggregateId {
-	public CategoryId(long value) : base(value) {
-	}
+	public CategoryId(Guid value) : base(value) { }
 
-	public static implicit operator long(CategoryId id) => id.Value;
-
-	public static implicit operator CategoryId(long id) => new(id);
+	public static implicit operator Guid(CategoryId id) => id.Value;
+	public static implicit operator CategoryId(Guid id) => new(id);
 }

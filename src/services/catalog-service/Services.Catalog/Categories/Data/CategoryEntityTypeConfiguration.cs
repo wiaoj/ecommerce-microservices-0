@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Services.Catalog.Shared.Data;
 
 namespace Services.Catalog.Categories.Data;
-
 public class CategoryEntityTypeConfiguration : IEntityTypeConfiguration<Category> {
 	public void Configure(EntityTypeBuilder<Category> builder) {
 		builder.ToTable("categories", CatalogDbContext.DefaultSchema);
@@ -14,6 +13,6 @@ public class CategoryEntityTypeConfiguration : IEntityTypeConfiguration<Category
 			.ValueGeneratedNever();
 
 		builder.Property(x => x.Created).HasDefaultValueSql(EfConstants.DateAlgorithm);
-		builder.Property(x => x.Name).HasColumnType(EfConstants.ColumnTypes.NormalText).IsRequired();
+		builder.Property(x => x.Name).HasColumnType(EfConstants.ColumnTypes.MediumText).IsRequired();
 	}
 }

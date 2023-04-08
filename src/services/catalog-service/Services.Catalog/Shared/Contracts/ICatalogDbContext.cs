@@ -4,16 +4,14 @@ using Services.Catalog.Products.Models;
 using Services.Catalog.Suppliers;
 
 namespace Services.Catalog.Shared.Contracts;
-
 public interface ICatalogDbContext {
-	DbSet<Product> Products { get; }
-	DbSet<Category> Categories { get; }
-	DbSet<Brand> Brands { get; }
-	DbSet<Supplier> Suppliers { get; }
-	DbSet<ProductView> ProductsView { get; }
+	public DbSet<Product> Products { get; }
+	public DbSet<Category> Categories { get; }
+	public DbSet<Brand> Brands { get; }
+	public DbSet<Supplier> Suppliers { get; }
+	public DbSet<ProductView> ProductsView { get; }
 
-	DbSet<TEntity> Set<TEntity>()
-		where TEntity : class;
+	public DbSet<TEntity> Set<TEntity>() where TEntity : class;
 
-	Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+	public Task<Int32> SaveChangesAsync(CancellationToken cancellationToken);
 }

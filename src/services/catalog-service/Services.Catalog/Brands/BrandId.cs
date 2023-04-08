@@ -1,7 +1,6 @@
 using BuildingBlocks.Abstractions.Domain;
 
 namespace Services.Catalog.Brands;
-
 public sealed record BrandId : AggregateId {
 	private BrandId(Guid value) : base(value) { }
 
@@ -9,5 +8,5 @@ public sealed record BrandId : AggregateId {
 
 
 	public static implicit operator Guid(BrandId id) => id.Value;
-	public static implicit operator BrandId(long id) => new(id);
+	public static implicit operator BrandId(Guid id) => new(id);
 }
